@@ -1,0 +1,46 @@
+---
+- name: Init linux environment
+  hosts: machines
+  become: true
+  tasks:
+    - name: Install dev tools (Debian)
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: true
+        name:
+          # basic
+          - git
+          # language
+          - python3
+          - python3-pip
+          - python-virtualenv
+          # cpp
+          - build-essential
+          - clang
+          - cmake
+          - gcc
+          - gdb
+          - ninja-build
+          - valgrind
+          # sql
+          - postgresql
+          # other tools
+          - zsh
+          - ansible
+          - ansible-lint
+          - curl
+          - htop
+          - fastfetch
+          - fzf
+          - ripgrep
+          - eza
+          - bat
+          - lazygit
+          - neovim
+          - fd-find
+          - btop
+          - dust
+          - wget
+          - unzip
+        state: present
+      when: ansible_os_family == "Debian"

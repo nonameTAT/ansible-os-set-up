@@ -1,0 +1,22 @@
+---
+- name: Init linux environment for os (not include dev tools)
+  hosts: machines
+  become: true
+  tasks:
+    - name: "Update system and app"
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+      when: ansible_os_family == "Archlinux"
+    - name: Install apps
+      community.general.pacman:
+        name:
+          - kitty
+          - okular
+          - obsidian
+          - rmpc
+          - discord
+          - mpv
+          - wl-clipboard
+        state: present
+      when: ansible_os_family == "Archlinux"

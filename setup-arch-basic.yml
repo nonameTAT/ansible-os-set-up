@@ -1,0 +1,47 @@
+---
+- name: Init linux environment
+  hosts: machines
+  become: true
+  tasks:
+    - name: Install dev tools (Arch)
+      community.general.pacman:
+        update_cache: true
+        upgrade: true
+        name:
+          # basic
+          - git
+          # language
+          - python
+          - python-pip
+          - python-virtualenv
+          # cpp
+          - base-devel
+          - clang
+          - cmake
+          - gcc
+          - gdb
+          - ninja
+          - valgrind
+          # sql
+          - postgresql
+          # other tools
+          - docker
+          - zsh
+          - ansible
+          - ansible-lint
+          - curl
+          - htop
+          - fastfetch
+          - fzf
+          - ripgrep
+          - eza
+          - bat
+          - lazygit
+          - neovim
+          - fd
+          - btop
+          - dust
+          - wget
+          - unzip
+        state: present
+      when: ansible_os_family == "Archlinux"

@@ -1,0 +1,14 @@
+---
+- name: Init linux environment as user
+  hosts: machines
+  tasks:
+    - name: Chezmoi
+      ansible.builtin.shell:
+        cmd: sh -c "$(curl -fsLS get.chezmoi.io)"
+      args:
+        creates: "{{ ansible_env.HOME }}/bin/chezmoi"
+    - name: Ohmyzsh
+      ansible.builtin.shell:
+        cmd: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+      args:
+        creates: "{{ ansible_env.HOME }}/.oh-my-zsh"
